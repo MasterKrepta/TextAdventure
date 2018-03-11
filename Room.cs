@@ -15,6 +15,7 @@ namespace TextAdventure {
         public Room(string incomingData) {
 
                 AssignRoomDetails(incomingData);
+                RoomDescription();
                 possibleExits.ToLower();
             
         }
@@ -35,6 +36,12 @@ namespace TextAdventure {
             //    Console.WriteLine($"\nData is <{detail}>");
             //}
             
+        }
+
+        StringBuilder RoomDescription() {
+            StringBuilder desc = new StringBuilder();
+            desc.AppendFormat( "\n Description for current room " + locX + " " + locY);
+            return desc;
         }
 
 

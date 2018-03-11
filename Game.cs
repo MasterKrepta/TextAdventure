@@ -8,15 +8,13 @@ namespace TextAdventure {
     class Game {
         
         public static Room currentRoom = new Room("1,1,left,down");
+        public static WorldBuilder World = new WorldBuilder();
 
         static void Main(string[] args) {
             ParseCommand parseCMD = new ParseCommand();
             ExecuteCmd executeCmd = new ExecuteCmd();
-            WorldBuilder wb = new WorldBuilder();
 
-            
             while (true) {
-
                 //TODO: set this up to read next part of story
                 DescribeCurrentRoom();
                 
@@ -45,7 +43,9 @@ namespace TextAdventure {
 
         private static void DescribeCurrentRoom() {
             //TODO: FOR TESTING ONLY, Remove when Finished
+            Console.Clear();
             Console.WriteLine("\nWe are currently in Room " + Game.currentRoom.locX + " " + Game.currentRoom.locY);
+            
 
             Console.WriteLine("\nStory stuff will go here");
 

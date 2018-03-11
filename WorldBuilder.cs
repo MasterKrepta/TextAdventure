@@ -14,11 +14,10 @@ namespace TextAdventure {
 
         public string[] worldData = File.ReadAllLines(@"..\data\worldmap.txt");
         public List<Room> Level = new List<Room>();
+
         public WorldBuilder() {
 
             CreateRooms();
-            
-            
             Console.WriteLine("\nWorld created Press any key to exit.");
             Console.ReadKey();
             Console.Clear();
@@ -29,9 +28,21 @@ namespace TextAdventure {
                 string nextRoom = worldData[i];
                 Room newRoom = new Room(nextRoom);
                 Level.Add(newRoom);
-                Console.WriteLine("\nLevel contains " + Level.Count + " rooms");         
+                Console.WriteLine("\nLevel contains " + Level.Count + " rooms");
+                GetCurrentRoom();
             }
 
+        }
+
+        public Room GetCurrentRoom() {
+            Room newRoom = Level[0];
+            foreach (Room room in Level) {
+                if(Game.currentRoom.locX == room.locX &&
+                    Game.currentRoom.locY == room.locY) {
+                    newRoom = room;
+                }
+            }
+            return newRoom;
         }
 
     }

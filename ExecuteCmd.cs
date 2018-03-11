@@ -12,19 +12,15 @@ namespace TextAdventure {
             
             switch (cmd.ToLower()) {
                 case "up":
-                    Console.WriteLine("move up");
                     MoveUp(Game.currentRoom);
                     break;
                 case "down":
-                    Console.WriteLine("move down");
                     MoveDown(Game.currentRoom);
                     break;
                 case "left":
-                    Console.WriteLine("move left");
                     MoveLeft(Game.currentRoom);
                     break;
                 case "right":
-                    Console.WriteLine("move right");
                     MoveRight(Game.currentRoom);
                     break;
                 case "drop":
@@ -149,24 +145,28 @@ namespace TextAdventure {
         private void MoveRight(Room currentRoom) {
             if (CanWeMoveHere(currentRoom, "right")) {
                 Game.currentRoom.locX++;
+                Game.currentRoom = Game.World.GetCurrentRoom();
             }
         }
 
         private void MoveLeft(Room currentRoom) {
             if (CanWeMoveHere(currentRoom, "left")) {
                 Game.currentRoom.locX--;
+                Game.currentRoom = Game.World.GetCurrentRoom();
             }
         }
 
         private void MoveDown(Room currentRoom) {
             if (CanWeMoveHere(currentRoom, "down")) {
                 Game.currentRoom.locY--;
+                Game.currentRoom = Game.World.GetCurrentRoom();
             }
         }
 
         private void MoveUp(Room currentRoom) {
             if (CanWeMoveHere(currentRoom, "up")) {
                 Game.currentRoom.locY++;
+                Game.currentRoom = Game.World.GetCurrentRoom();
             }
             
         }
@@ -177,7 +177,7 @@ namespace TextAdventure {
                 return true;
             }
             else {
-                //Console.WriteLine("\nCannot move here");
+                Console.WriteLine("\nCannot move here");
                 return false;
             }
                 
