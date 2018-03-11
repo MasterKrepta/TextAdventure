@@ -1,8 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TextAdventure {
     class ExecuteCmd {
@@ -12,16 +8,16 @@ namespace TextAdventure {
             
             switch (cmd.ToLower()) {
                 case "up":
-                    MoveUp(Game.currentRoom);
+                    MoveUp();
                     break;
                 case "down":
-                    MoveDown(Game.currentRoom);
+                    MoveDown();
                     break;
                 case "left":
-                    MoveLeft(Game.currentRoom);
+                    MoveLeft();
                     break;
                 case "right":
-                    MoveRight(Game.currentRoom);
+                    MoveRight();
                     break;
                 case "drop":
                     
@@ -62,7 +58,12 @@ namespace TextAdventure {
         }
 
         private void CurrentRoom() {
-            Console.WriteLine("\nWe are currently in Room " + Game.currentRoom.locX + " " + Game.currentRoom.locY);
+            Console.WriteLine(Game.World.Level.Count); 
+            foreach (Room room in Game.World.Level) {
+                Console.WriteLine(room.locX + " " + room.locY + " " + room.possibleExits);
+
+                
+            }
         }
 
         private void DropItem() {
@@ -139,34 +140,53 @@ namespace TextAdventure {
                 Console.WriteLine(item.ToUpper());
             }
             Console.WriteLine("\n----------------------------");
-            
+            Console.WriteLine("\nPossible Exits are: " + Game.currentRoom.possibleExits);
+
         }
 
-        private void MoveRight(Room currentRoom) {
-            if (CanWeMoveHere(currentRoom, "right")) {
-                Game.currentRoom.locX++;
-                Game.currentRoom = Game.World.GetCurrentRoom();
+
+        #region MOVEMENT FUNCTIONS
+
+        private void MoveRight() {
+            if (CanWeMoveHere(Game.currentRoom, "right")) {
+                Room roomWeWant = Game.currentRoom;
+                roomWeWant.locX++;
+
+               // Game.World.GetCurrentRoomByLoc(roomWeWant.locX.ToString() + "," + roomWeWant.locY.ToString());
+                Game.currentRoom = Game.World.GetCurrentRoom(roomWeWant);
+                Console.WriteLine("current room asfter we change it is: " + Game.currentRoom.locX + " " + Game.currentRoom.locY);
             }
         }
 
-        private void MoveLeft(Room currentRoom) {
-            if (CanWeMoveHere(currentRoom, "left")) {
-                Game.currentRoom.locX--;
-                Game.currentRoom = Game.World.GetCurrentRoom();
+        private void MoveLeft() {
+            if (CanWeMoveHere(Game.currentRoom, "left")) {
+                Room roomWeWant = Game.currentRoom;
+                roomWeWant.locX--;
+                //Game.World.GetCurrentRoomByLoc(roomWeWant.locX.ToString() + "," + roomWeWant.locY.ToString());
+                Game.currentRoom = Game.World.GetCurrentRoom(roomWeWant);
+                Console.WriteLine("current room asfter we change it is: " + Game.currentRoom.locX + " " + Game.currentRoom.locY);
             }
         }
 
-        private void MoveDown(Room currentRoom) {
-            if (CanWeMoveHere(currentRoom, "down")) {
-                Game.currentRoom.locY--;
-                Game.currentRoom = Game.World.GetCurrentRoom();
+        private void MoveDown() {
+            if (CanWeMoveHere(Game.currentRoom, "down")) {
+                Room roomWeWant = Game.currentRoom;
+                roomWeWant.locY--;
+                //Game.World.GetCurrentRoomByLoc(roomWeWant.locX.ToString() + "," + roomWeWant.locY.ToString());
+                Game.currentRoom = Game.World.GetCurrentRoom(roomWeWant);
+                Console.WriteLine("current room asfter we change it is: " + Game.currentRoom.locX + " " + Game.currentRoom.locY);
             }
         }
 
-        private void MoveUp(Room currentRoom) {
-            if (CanWeMoveHere(currentRoom, "up")) {
-                Game.currentRoom.locY++;
-                Game.currentRoom = Game.World.GetCurrentRoom();
+        private void MoveUp() {
+            if (CanWeMoveHere(Game.currentRoom, "up")) {
+                Room roomWeWant = Game.currentRoom;
+                roomWeWant.locX = Game.currentRoom.locX; // DOnt need this
+                roomWeWant.locY++;
+
+                //Game.World.GetCurrentRoomByLoc(roomWeWant.locX.ToString() + "," + roomWeWant.locY.ToString());
+                Game.currentRoom = Game.World.GetCurrentRoom(roomWeWant);
+                Console.WriteLine("current room asfter we change it is: " + Game.currentRoom.locX + " " + Game.currentRoom.locY);
             }
             
         }
@@ -182,5 +202,6 @@ namespace TextAdventure {
             }
                 
         }
+        #endregion
     }
 }

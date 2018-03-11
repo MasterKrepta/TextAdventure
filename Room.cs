@@ -10,8 +10,11 @@ namespace TextAdventure {
         public int locX;
         public int locY;
         public string possibleExits = "";
-        
 
+
+        public Room() {
+
+        }
         public Room(string incomingData) {
 
                 AssignRoomDetails(incomingData);
@@ -21,7 +24,8 @@ namespace TextAdventure {
         }
 
         void AssignRoomDetails(string nextRoomData) {
-            
+            possibleExits = "";
+
             string[] data = nextRoomData.Split(',');
             locX = Int32.Parse(data[0]);
             locY = Int32.Parse(data[1]);
