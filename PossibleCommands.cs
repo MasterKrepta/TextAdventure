@@ -24,7 +24,8 @@ namespace TextAdventure {
             "drop",
             "use",
             "help",
-            "map"
+            "map",
+            "current"
         };
 
         public PossibleCommands() {

@@ -13,32 +13,32 @@ namespace TextAdventure {
             switch (cmd.ToLower()) {
                 case "up":
                     Console.WriteLine("move up");
-                    MoveUp();
+                    MoveUp(Game.currentRoom);
                     break;
                 case "down":
                     Console.WriteLine("move down");
-                    MoveDown();
+                    MoveDown(Game.currentRoom);
                     break;
                 case "left":
                     Console.WriteLine("move left");
-                    MoveLeft();
+                    MoveLeft(Game.currentRoom);
                     break;
                 case "right":
                     Console.WriteLine("move right");
-                    MoveRight();
+                    MoveRight(Game.currentRoom);
                     break;
                 case "drop":
                     
                     DropItem();
                     break;
                 case "look":
-                    Look();
+                    Look(Game.currentRoom);
                     break;
                 case "l":
-                    Look();
+                    Look(Game.currentRoom);
                     break;
                 case "examine":
-                    Look();
+                    Look(Game.currentRoom);
                     break;
                 case "use":
                     Use();
@@ -52,7 +52,6 @@ namespace TextAdventure {
                     break;
                 case "map":
                     Map();
-                    Console.WriteLine("Display Ascii Map");
                     break;
                 case "inventory":
                     CheckInventory();
@@ -60,7 +59,14 @@ namespace TextAdventure {
                 case "i":
                     CheckInventory();
                     break;
+                case "current": // FOR DEBUGING
+                    CurrentRoom();
+                    break;
             }
+        }
+
+        private void CurrentRoom() {
+            Console.WriteLine("\nWe are currently in Room " + Game.currentRoom.locX + " " + Game.currentRoom.locY);
         }
 
         private void DropItem() {
@@ -106,7 +112,7 @@ namespace TextAdventure {
         }
 
         private void Map() {
-            throw new NotImplementedException();
+            ShowMap map = new ShowMap();
         }
 
         private void Help() {
@@ -127,7 +133,7 @@ namespace TextAdventure {
            
         }
 
-        private void Look() {
+        private void Look(Room currentRoom) {
             Console.WriteLine("\nContents of room");
             Console.WriteLine("\n----------------------------");
             if (inventory.roomInventory.Count == 0) {
@@ -137,30 +143,41 @@ namespace TextAdventure {
                 Console.WriteLine(item.ToUpper());
             }
             Console.WriteLine("\n----------------------------");
+            
         }
 
-        private void MoveRight() {
-            throw new NotImplementedException();
+        private void MoveRight(Room currentRoom) {
+            if (CanWeMoveHere(currentRoom, "right")) {
+                Game.currentRoom.locX++;
+            }
         }
 
-        private void MoveLeft() {
-            throw new NotImplementedException();
+        private void MoveLeft(Room currentRoom) {
+            if (CanWeMoveHere(currentRoom, "left")) {
+                Game.currentRoom.locX--;
+            }
         }
 
-        private void MoveDown() {
-            throw new NotImplementedException();
+        private void MoveDown(Room currentRoom) {
+            if (CanWeMoveHere(currentRoom, "down")) {
+                Game.currentRoom.locY--;
+            }
         }
 
-        private void MoveUp() {
-            throw new NotImplementedException();
+        private void MoveUp(Room currentRoom) {
+            if (CanWeMoveHere(currentRoom, "up")) {
+                Game.currentRoom.locY++;
+            }
+            
         }
 
         private bool CanWeMoveHere(Room currentRoom, string direction) {
             if (currentRoom.possibleExits.Contains(direction.ToLower())){
+                //Console.WriteLine("\nwe can move ");
                 return true;
             }
             else {
-                Console.WriteLine("\nCannot move here");
+                //Console.WriteLine("\nCannot move here");
                 return false;
             }
                 

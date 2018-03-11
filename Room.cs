@@ -9,19 +9,35 @@ namespace TextAdventure {
 
         public int locX;
         public int locY;
-        public string[] possibleExits = { "up", "down", "left", "right"};
+        public string possibleExits = "";
+        
 
+        public Room(string incomingData) {
 
-        public Room() {
-            GetRoomData();
-            for (int i = 0; i < possibleExits.Length; i++) {
-                possibleExits[i].ToLower();
+                AssignRoomDetails(incomingData);
+                possibleExits.ToLower();
+            
+        }
+
+        void AssignRoomDetails(string nextRoomData) {
+            
+            string[] data = nextRoomData.Split(',');
+            locX = Int32.Parse(data[0]);
+            locY = Int32.Parse(data[1]);
+            for (int i = 2; i < data.Length; i++) {
+                possibleExits += data[i] + ' ';
             }
+
+            //SAVE FOR DEBUGING
+            //Console.WriteLine("\n room is :  " + room.locX + " || " + room.locY);
+            //Console.WriteLine("\n Possible Exits are: " + room.possibleExits);
+            //foreach (var detail in data) {
+            //    Console.WriteLine($"\nData is <{detail}>");
+            //}
+            
         }
 
-        void GetRoomData() {
-            //TODO: Get the data from an external file
-        }
-       
-}
+
+
+    }
 }

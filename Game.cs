@@ -5,19 +5,21 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace TextAdventure {
+    class Game {
+        
+        public static Room currentRoom = new Room("1,1,left,down");
 
-    class Program {
-        
-        
         static void Main(string[] args) {
             ParseCommand parseCMD = new ParseCommand();
             ExecuteCmd executeCmd = new ExecuteCmd();
+            WorldBuilder wb = new WorldBuilder();
 
-
-
+            
             while (true) {
+
                 //TODO: set this up to read next part of story
-                Console.WriteLine("\nStory stuff will go here");
+                DescribeCurrentRoom();
+                
 
                 Console.WriteLine("\nEnter a command...: ");
                 string input = Console.ReadLine();
@@ -39,12 +41,16 @@ namespace TextAdventure {
                 }
                 Console.ReadKey();
             }
-
-          
         }
 
+        private static void DescribeCurrentRoom() {
+            //TODO: FOR TESTING ONLY, Remove when Finished
+            Console.WriteLine("\nWe are currently in Room " + Game.currentRoom.locX + " " + Game.currentRoom.locY);
 
-     
+            Console.WriteLine("\nStory stuff will go here");
+
+            Console.WriteLine("\nPossible Exits are: " + currentRoom.possibleExits);
+        }
     }
 
   
