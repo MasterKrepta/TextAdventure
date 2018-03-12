@@ -37,50 +37,26 @@ namespace TextAdventure {
     }
 
         public Room AssignCurrentRoom(Room roomWeWant) {
-            
-            Room newRoom = roomWeWant;
+
+            Console.WriteLine("\nRoom We want details: " + roomWeWant.locX + " " + roomWeWant.locY + " : Old exits are " + roomWeWant.possibleExits);
+
             for (int i = 0; i < Level.Count; i++) {
-                if (newRoom.locX == Level[i].locX &&  newRoom.locY == Level[i].locY) {
-                    Console.WriteLine("we found it");
-                    newRoom = Level[i];
-                    //newRoom.AssignRoomDetails(newRoom.ToString());
-                    Console.WriteLine("new room has exits: " + newRoom.possibleExits.ToString());
-                    Console.WriteLine("New RoomX : " + newRoom.locX + " New RoomY : " + newRoom.locY);
+                if (roomWeWant.locX == Level[i].locX && roomWeWant.locY == Level[i].locY) {
+                    Console.WriteLine("\nLevel has Exits: " + Level[i].possibleExits +" in array location: " + i);
+                    roomWeWant = Level[i];
+                    //roomWeWant.locX = Level[i].locX;
+                    //roomWeWant.locY = Level[i].locY;
+                    //roomWeWant.possibleExits = Level[i].possibleExits;
+                    Console.WriteLine("new room  exits: " + roomWeWant.possibleExits);
                     break;
                 }
-                
+                Console.WriteLine(i);
+
             }
-            Console.WriteLine("current room before we change it is: " + Game.currentRoom.locX + " " + Game.currentRoom.locY);
-            return newRoom;
+            return roomWeWant;
         }
 
-        public Room GetCurrentRoomByLoc(string locaton) {
-            Room newRoom = new Room();
-            int[] roomToFind = new Int32[2];
-            string[] data = locaton.Split(',');
-            roomToFind[0] = Int32.Parse(data[0]);
-            roomToFind[1] = Int32.Parse(data[1]);
-            Console.WriteLine(newRoom.possibleExits);
-            for (int i = 0; i < Level.Count; i++) {
-                if (roomToFind[0] == Level[i].locX &&
-                    roomToFind[1] == Level[i].locY) {
-                    newRoom = Level[i];
-                    Console.WriteLine( newRoom.possibleExits + "after asignment");
-                    Console.WriteLine(newRoom.possibleExits.ToString());
-                    Console.WriteLine("New RoomX : " + Level[i].locX + " New RoomY : " + Level[i].locY);
-                    Console.WriteLine("\nGet current says Possible Exits are: " + newRoom.possibleExits);
-
-                    break;
-                }
-                else {
-                    Console.WriteLine("NO MATCHINING FOUND !!!!!!");
-
-                }
-            }
-            Console.WriteLine("current room before we change it is: " + Game.currentRoom.locX + " " + Game.currentRoom.locY);
-            return newRoom;
-
-        }
+        
     }
     
 }
