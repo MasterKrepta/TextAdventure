@@ -26,9 +26,9 @@ namespace TextAdventure {
                 Room newRoom = new Room(nextRoom);
                 Level.Add(newRoom);
             }
-            foreach (Room room in Level) {
-                Console.WriteLine(room.locX + " " + room.locY + " " + room.possibleExits);
-            }
+            //foreach (Room room in Level) {           
+            //    Console.WriteLine(room.locX + " " + room.locY + " " + room.possibleExits);
+            //}
             
             Console.WriteLine("\nWorld created Press any key to exit.");
             Console.ReadKey();
@@ -36,29 +36,19 @@ namespace TextAdventure {
 
     }
 
-        public Room GetCurrentRoom(Room roomWeWant) {
-            Console.WriteLine("Room we want X : " + roomWeWant.locX + " :: Y : " +roomWeWant.locY);
-            Console.WriteLine("\nRoom we want should hve Possible Exits are: " + roomWeWant.possibleExits);
+        public Room AssignCurrentRoom(Room roomWeWant) {
+            
             Room newRoom = roomWeWant;
-            Console.WriteLine("current room is: " + Game.currentRoom.locX + " " + Game.currentRoom.locY);
-            Console.WriteLine("room we want X: " + newRoom.locX + " Y: " + newRoom.locY);
-
             for (int i = 0; i < Level.Count; i++) {
-                if (newRoom.locX == Level[i].locX &&
-                    newRoom.locY == Level[i].locY) {
+                if (newRoom.locX == Level[i].locX &&  newRoom.locY == Level[i].locY) {
+                    Console.WriteLine("we found it");
                     newRoom = Level[i];
-
-                    Console.WriteLine(newRoom.possibleExits.ToString());
-                    Console.WriteLine("New RoomX : " + Level[i].locX + " New RoomY : " + Level[i].locY);
-                    Console.WriteLine("\nGet current says Possible Exits are: " + newRoom.possibleExits);
-
-                    Console.WriteLine("**********************************************WE ARE GOOD!!!!!******************");
+                    //newRoom.AssignRoomDetails(newRoom.ToString());
+                    Console.WriteLine("new room has exits: " + newRoom.possibleExits.ToString());
+                    Console.WriteLine("New RoomX : " + newRoom.locX + " New RoomY : " + newRoom.locY);
                     break;
                 }
-                else {
-                    Console.WriteLine("NO MATCHINING FOUND !!!!!!");
-                    
-                }
+                
             }
             Console.WriteLine("current room before we change it is: " + Game.currentRoom.locX + " " + Game.currentRoom.locY);
             return newRoom;

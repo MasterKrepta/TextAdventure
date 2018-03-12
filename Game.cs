@@ -16,7 +16,7 @@ namespace TextAdventure {
             ParseCommand parseCMD = new ParseCommand();
             ExecuteCmd executeCmd = new ExecuteCmd();
             World.CreateRooms();
-            World.GetCurrentRoom(Game.currentRoom);
+            World.AssignCurrentRoom(Game.currentRoom);
             
 
             while (true) {
@@ -50,9 +50,9 @@ namespace TextAdventure {
             //TODO: FOR TESTING ONLY, Remove when Finished
             Console.Clear();
             Console.WriteLine("\nWe are currently in Room " + currentRoom.locX + " " + currentRoom.locY);
-            
 
-            Console.WriteLine("\nStory stuff will go here");
+
+            currentRoom.DisplayRoomDescription();
 
             Console.WriteLine("\nPossible Exits are: " + currentRoom.possibleExits);
         }

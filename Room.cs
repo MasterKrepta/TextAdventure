@@ -16,35 +16,33 @@ namespace TextAdventure {
 
         }
         public Room(string incomingData) {
-
                 AssignRoomDetails(incomingData);
-                RoomDescription();
                 possibleExits.ToLower();
             
         }
 
-        void AssignRoomDetails(string nextRoomData) {
+        public void AssignRoomDetails(string nextRoomData) {
             possibleExits = "";
 
             string[] data = nextRoomData.Split(',');
             locX = Int32.Parse(data[0]);
             locY = Int32.Parse(data[1]);
             for (int i = 2; i < data.Length; i++) {
-                possibleExits += data[i] + ' ';
+                possibleExits += data[i] + " ";
+                //Console.WriteLine(possibleExits + " is in this room");
             }
 
             //SAVE FOR DEBUGING
-            //Console.WriteLine("\n room is :  " + room.locX + " || " + room.locY);
-            //Console.WriteLine("\n Possible Exits are: " + room.possibleExits);
+            //Console.WriteLine("\n room is :  " + locX + " || " + locY + " || " + possibleExits);
             //foreach (var detail in data) {
             //    Console.WriteLine($"\nData is <{detail}>");
             //}
-            
         }
 
-        StringBuilder RoomDescription() {
+        public StringBuilder DisplayRoomDescription() {
             StringBuilder desc = new StringBuilder();
             desc.AppendFormat( "\n Description for current room " + locX + " " + locY);
+            Console.WriteLine(desc.ToString());
             return desc;
         }
 
