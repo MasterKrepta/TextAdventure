@@ -2,22 +2,23 @@ using System;
 
 namespace TextAdventure {
     class ExecuteCmd {
-        Inventory inventory = new Inventory();
+        
 
         public void ProcessCmd(string cmd) {
             
             switch (cmd.ToLower()) {
+                //TODO clean up movement code
                 case "up":
-                    MoveUp();
+                    Game.Player.Move(cmd.ToLower());
                     break;
                 case "down":
-                    MoveDown();
+                    Game.Player.Move(cmd.ToLower());
                     break;
                 case "left":
-                    MoveLeft();
+                    Game.Player.Move(cmd.ToLower());
                     break;
                 case "right":
-                    MoveRight();
+                    Game.Player.Move(cmd.ToLower());
                     break;
                 case "drop":
                     
@@ -51,60 +52,21 @@ namespace TextAdventure {
                 case "i":
                     CheckInventory();
                     break;
-                case "current": // FOR DEBUGING
-                    CurrentRoom();
-                    break;
+               
             }
         }
 
-        private void CurrentRoom() {
-            Console.WriteLine(Game.World.Level.Count); 
-            foreach (Room room in Game.World.Level) {
-                Console.WriteLine(room.locX + " " + room.locY + " " + room.possibleExits);
-
-                
-            }
-        }
 
         private void DropItem() {
-            Console.WriteLine("\nWhat do you want to drop? : ");
-            string itemToDrop = Console.ReadLine();
-
-            if (inventory.playerInventory.Contains(itemToDrop.ToLower())) {
-                Console.WriteLine(itemToDrop + " is dropped in the room");
-                inventory.playerInventory.Remove(itemToDrop);
-                inventory.roomInventory.Add(itemToDrop);
-            }
-            else {
-                Console.WriteLine("\n" + itemToDrop + " does not exist");
-            }
+           
         }
 
         private void CheckInventory() {
-            Console.WriteLine("\nContents of inventory");
-            Console.WriteLine("\n----------------------------");
-            if(inventory.playerInventory.Count == 0) {
-                Console.WriteLine("INVENTORY IS EMPTY");
-            }
-            foreach (string item in inventory.playerInventory) {
-                Console.WriteLine(item.ToUpper());
-            }
-            Console.WriteLine("\n----------------------------");
+           
         }
 
         private void Pickup() {
-            Console.WriteLine("\nWhat do you want to Pickup? : ");
-            string itemToPickup = Console.ReadLine();
-
-            if (inventory.roomInventory.Contains(itemToPickup.ToLower())) {
-                Console.WriteLine(itemToPickup + " is picked up");
-                inventory.playerInventory.Add(itemToPickup);
-                inventory.roomInventory.Remove(itemToPickup);
-                
-            }
-            else {
-                Console.WriteLine("\n" + itemToPickup + " does not exist");
-            }
+            
 
         }
 
@@ -120,84 +82,24 @@ namespace TextAdventure {
             Console.WriteLine("\nWhat do you want to use? : ");
             string itemToUse = Console.ReadLine();
             
-            if (inventory.playerInventory.Contains(itemToUse.ToLower()) ||
-                inventory.roomInventory.Contains(itemToUse.ToLower())) {
-                Console.WriteLine(itemToUse + " is being used");
-                //TODO remove item from list if its consumable
-            } else {
-                Console.WriteLine("\n" + itemToUse + " does not exist");
-            }
            
         }
 
         private void Look(Room currentRoom) {
             Console.WriteLine("\nContents of room");
             Console.WriteLine("\n----------------------------");
-            if (inventory.roomInventory.Count == 0) {
+            if (currentRoom.ItemsinRoom.Count == 0) {
                 Console.WriteLine("ROOM IS EMPTY");
             }
-            foreach (string item in inventory.roomInventory) {
+            foreach (string item in currentRoom.ItemsinRoom) {
                 Console.WriteLine(item.ToUpper());
             }
             Console.WriteLine("\n----------------------------");
-            Console.WriteLine("\nPossible Exits are: " + Game.currentRoom.possibleExits);
+            
 
         }
 
 
-        #region MOVEMENT FUNCTIONS
-
-        private void MoveRight() {
-            if (CanWeMoveHere(Game.currentRoom, "right")) {
-                Room roomWeWant = Game.currentRoom;
-                roomWeWant.locX++;
-                
-                Game.currentRoom = Game.World.AssignCurrentRoom(roomWeWant);
-                
-            }
-        }
-
-        private void MoveLeft() {
-            if (CanWeMoveHere(Game.currentRoom, "left")) {
-                Room roomWeWant = Game.currentRoom;
-                roomWeWant.locX--;
-                
-                Game.currentRoom = Game.World.AssignCurrentRoom(roomWeWant);
-                
-            }
-        }
-
-        private void MoveDown() {
-            if (CanWeMoveHere(Game.currentRoom, "down")) {
-                Room roomWeWant = Game.currentRoom;
-                roomWeWant.locY--;
-                
-                Game.currentRoom = Game.World.AssignCurrentRoom(roomWeWant);
-                
-            }
-        }
-
-        private void MoveUp() {
-            if (CanWeMoveHere(Game.currentRoom, "up")) {
-                Room roomWeWant = Game.currentRoom;
-                roomWeWant.locY++;
-                
-                Game.currentRoom = Game.World.AssignCurrentRoom(roomWeWant);
-                
-            }
-        }
-
-        private bool CanWeMoveHere(Room currentRoom, string direction) {
-            if (currentRoom.possibleExits.Contains(direction.ToLower())){
-                //Console.WriteLine("\we can move ");
-                return true;
-            }
-            else {
-                Console.WriteLine("\nCannot move here");
-                return false;
-            }
-                
-        }
-        #endregion
+        
     }
 }

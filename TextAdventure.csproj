@@ -43,8 +43,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExecuteCmd.cs" />
-    <Compile Include="Inventory.cs" />
+    <Compile Include="Item.cs" />
     <Compile Include="ParseCommand.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="PossibleCommands.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

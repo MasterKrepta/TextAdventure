@@ -6,37 +6,39 @@ using System.Threading.Tasks;
 
 namespace TextAdventure {
     class Game {
+        public static Player Player = new Player();
+        public static Room currentRoom = new Room("1,1,left,down"); // Place the player in the starting room
         
-        public static Room currentRoom = new Room("1,1,left,down");
         public static WorldBuilder World = new WorldBuilder();
         
 
         static void Main(string[] args) {
             
+            
             ParseCommand parseCMD = new ParseCommand();
             ExecuteCmd executeCmd = new ExecuteCmd();
             World.CreateRooms();
-            World.AssignCurrentRoom(Game.currentRoom);
-            
+            bool isValid = false;
 
             while (true) {
+                Console.Clear();
+                Player.ChangeLocation();
                 //TODO: set this up to read next part of story
-                DescribeCurrentRoom();
-                
+                currentRoom.DescribeRoom();
 
                 Console.WriteLine("\nEnter a command...: ");
                 string input = Console.ReadLine();
-                
-                bool isValid = parseCMD.Validate(input);
 
-                if(input.ToLower() == "exit") {
+                if (input.ToLower() == "exit") {
                     Console.WriteLine("\nThanks for playing");
                     Console.ReadKey();
                     break;
                 }
 
+
+                isValid = parseCMD.Validate(input);
                 if (isValid) {
-                    //Console.WriteLine(isValid + " : " + input.ToUpper());
+                    
                     executeCmd.ProcessCmd(input);
                 }
                 else {
@@ -46,16 +48,7 @@ namespace TextAdventure {
             }
         }
 
-        private static void DescribeCurrentRoom() {
-            //TODO: FOR TESTING ONLY, Remove when Finished
-            Console.Clear();
-            Console.WriteLine("\nWe are currently in Room " + currentRoom.locX + " " + currentRoom.locY);
 
-
-            currentRoom.DisplayRoomDescription();
-
-            Console.WriteLine("\nPossible Exits are: " + currentRoom.possibleExits);
-        }
     }
 
   

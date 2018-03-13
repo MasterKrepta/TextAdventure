@@ -14,7 +14,6 @@ namespace TextAdventure {
             "down",
             "left",
             "right",
-            
             "inventory",
             "i",
             "examine",
@@ -25,7 +24,7 @@ namespace TextAdventure {
             "use",
             "help",
             "map",
-            "current"
+            
         };
 
         public PossibleCommands() {

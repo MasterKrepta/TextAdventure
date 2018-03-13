@@ -11,7 +11,7 @@ using System.IO;
  */
 namespace TextAdventure {
     class WorldBuilder {
-
+        public static Room[,] LevelGrid;
         public string[] worldData = File.ReadAllLines(@"..\data\worldmap.txt");
         public List<Room> Level = new List<Room>();
 
@@ -25,36 +25,27 @@ namespace TextAdventure {
                 string nextRoom = worldData[i];
                 Room newRoom = new Room(nextRoom);
                 Level.Add(newRoom);
+
             }
             //foreach (Room room in Level) {           
             //    Console.WriteLine(room.locX + " " + room.locY + " " + room.possibleExits);
             //}
-            
+
+             
             Console.WriteLine("\nWorld created Press any key to exit.");
             Console.ReadKey();
             Console.Clear();
 
     }
 
-        public Room AssignCurrentRoom(Room roomWeWant) {
+     public static void BuildLevel() {
+            LevelGrid = new Room[5, 3];
 
-            Console.WriteLine("\nRoom We want details: " + roomWeWant.locX + " " + roomWeWant.locY + " : Old exits are " + roomWeWant.possibleExits);
+            Room room;
 
-            for (int i = 0; i < Level.Count; i++) {
-                if (roomWeWant.locX == Level[i].locX && roomWeWant.locY == Level[i].locY) {
-                    Console.WriteLine("\nLevel has Exits: " + Level[i].possibleExits +" in array location: " + i);
-                    roomWeWant = Level[i];
-                    //roomWeWant.locX = Level[i].locX;
-                    //roomWeWant.locY = Level[i].locY;
-                    //roomWeWant.possibleExits = Level[i].possibleExits;
-                    Console.WriteLine("new room  exits: " + roomWeWant.possibleExits);
-                    break;
-                }
-                Console.WriteLine(i);
-
-            }
-            return roomWeWant;
-        }
+            room = new Room();
+            LevelGrid[0, 0] = room;
+        }  
 
         
     }
