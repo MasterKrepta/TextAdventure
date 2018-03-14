@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace TextAdventure {
     class Game {
         public static Player Player = new Player();
-        public static Room currentRoom = new Room("1,1,left,down"); // Place the player in the starting room
+        public static Room currentRoom = new Room("1,1,left,down", "1,1,A single light swings back and forth, and you hear a subtle hum in the background"); // Place the player in the starting room
         
         public static WorldBuilder World = new WorldBuilder();
         
@@ -26,11 +26,14 @@ namespace TextAdventure {
                 //TODO: set this up to read next part of story
                 currentRoom.DescribeRoom();
 
-                Console.WriteLine("\nEnter a command...: ");
+                //Console.SetCursorPosition(5, 20);
+                Console.WriteLine("\n     Enter a command...: ");
+                
+                //Console.SetCursorPosition(5, 23);
                 string input = Console.ReadLine();
 
                 if (input.ToLower() == "exit") {
-                    Console.WriteLine("\nThanks for playing");
+                    Console.WriteLine("\n          Thanks for playing");
                     Console.ReadKey();
                     break;
                 }
@@ -42,9 +45,10 @@ namespace TextAdventure {
                     executeCmd.ProcessCmd(input);
                 }
                 else {
-                    Console.WriteLine("\nSorry, Command " + input.ToUpper() + " is not recognized. Try again");
+                    Console.WriteLine("\n    Sorry, Command " + input.ToUpper() + " is not recognized. Try again");
+                    Console.ReadKey();
                 }
-                Console.ReadKey();
+                
             }
         }
 

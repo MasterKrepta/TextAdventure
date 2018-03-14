@@ -29,6 +29,7 @@ namespace TextAdventure {
 
             if (!room.CanExit(dir)){
                 Console.WriteLine("You cannot move that way!!");
+                Console.ReadKey();
                 return;
             }
             switch (dir) {

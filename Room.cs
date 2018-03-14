@@ -5,11 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace TextAdventure {
+    
     class Room {
+        
 
         private int locX;
         private int locY;
-
+        private string description;
         public int LocX { get => locX; set => locX = value; }
         public int LocY { get => locY; set => locY = value; }
 
@@ -24,23 +26,27 @@ namespace TextAdventure {
             itemsinRoom = new List<string>();
         }
 
-        public Room(string incomingData) {
+        public Room(string incomingData, string incomingDesc) {
             exitsInRoom = new List<string>();
             itemsinRoom = new List<string>();
-            AssignRoomDetails(incomingData);
+            AssignRoomDetails(incomingData, incomingDesc);
             
         }
 
 
 
-        public void AssignRoomDetails(string nextRoomData) {
+        public void AssignRoomDetails(string nextRoomData, string nextDesc) {
             string[] data = nextRoomData.Split(',');
+            //string[] desc = nextDesc.Split(',');
+            
             LocX = Int32.Parse(data[0]);
             LocY = Int32.Parse(data[1]);
             for (int i = 2; i < data.Length; i++) {
                 exitsInRoom.Add(data[i]);
-                //Console.WriteLine("room created at " + locX + " , " + locY + " with exits: " + data[i]);
+                
             }
+            description = nextDesc;
+            
         }
         public void GetItem() {
             //TODO Set up item class
@@ -62,7 +68,7 @@ namespace TextAdventure {
 
         private string GetExits() {
             string exitsString = "";
-            string display = "Possible Exits are: ";
+            string display = "\n     Possible Exits are: ";
             foreach(string exit in exitsInRoom) {
                 exitsString += "  " + exit;
             }
@@ -75,10 +81,13 @@ namespace TextAdventure {
         }
         
         public void DescribeRoom() {
-            StringBuilder desc = new StringBuilder();
-            desc.AppendFormat( "\n Description for current room " + LocX + " " + LocY);
-            
-            Console.WriteLine(desc.ToString());
+            string desc = "";
+            desc +=("\nDescription for room " + LocX + " " + LocY + "\n");
+
+            desc +=("\n" + description);
+            //Console.WriteLine(desc.ToString());
+            DisplayText.FormatToScreen(desc);
+            //Console.SetCursorPosition(5, 15);
             Console.WriteLine(GetExits());
         }
 
