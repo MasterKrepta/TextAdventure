@@ -17,6 +17,7 @@ namespace TextAdventure {
 
         private List<string> exitsInRoom = new List<string>();
         private List<string> itemsinRoom = new List<string>();
+        
 
         public List<string> ItemsinRoom { get => itemsinRoom; set => itemsinRoom = value; }
 
@@ -26,19 +27,19 @@ namespace TextAdventure {
             itemsinRoom = new List<string>();
         }
 
-        public Room(string incomingData, string incomingDesc) {
+        public Room(string incomingData, string incomingDesc, string itemsInRoom) {
             exitsInRoom = new List<string>();
             itemsinRoom = new List<string>();
-            AssignRoomDetails(incomingData, incomingDesc);
+            AssignRoomDetails(incomingData, incomingDesc, itemsInRoom);
             
         }
 
 
 
-        public void AssignRoomDetails(string nextRoomData, string nextDesc) {
+        public void AssignRoomDetails(string nextRoomData, string nextDesc, string nextItem) {
             string[] data = nextRoomData.Split(',');
             //string[] desc = nextDesc.Split(',');
-            
+            string[] items = nextItem.Split(',');
             LocX = Int32.Parse(data[0]);
             LocY = Int32.Parse(data[1]);
             for (int i = 2; i < data.Length; i++) {
@@ -46,12 +47,26 @@ namespace TextAdventure {
                 
             }
             description = nextDesc;
+            foreach(string item in items){
+                AddItems(item);
+            }   
+            
             
         }
-        public void GetItem() {
-            //TODO Set up item class
+
+
+        public void AddExit(string exit) {
+            if (!exitsInRoom.Contains(exit)) {
+                exitsInRoom.Add(exit);
+            }
+
         }
 
+        public void RemoveExit(string exit) {
+            if (exitsInRoom.Contains(exit)) {
+                exitsInRoom.Remove(exit);
+            }
+        }
         public bool CanExit(string dir) {
             foreach(string valid in exitsInRoom) {
                 if (dir == valid) {
@@ -62,8 +77,8 @@ namespace TextAdventure {
         }       
 
 
-        private string GetItems() {
-            return  "";
+        private void AddItems(string item) {
+            itemsinRoom.Add(item);
         }
 
         private string GetExits() {
@@ -73,6 +88,15 @@ namespace TextAdventure {
                 exitsString += "  " + exit;
             }
             return "\n" + display + exitsString;
+        }
+
+        private string GetItems() {
+            string itemString = "";
+            string display = "\n     Items in room: ";
+            foreach (string item in ItemsinRoom) {
+                itemString += " " + item;
+            }
+            return "\n" + display + itemString;
         }
 
         private string GetLocation() {
@@ -89,6 +113,7 @@ namespace TextAdventure {
             DisplayText.FormatToScreen(desc);
             //Console.SetCursorPosition(5, 15);
             Console.WriteLine(GetExits());
+            Console.WriteLine(GetItems());
         }
 
 

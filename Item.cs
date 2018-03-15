@@ -9,5 +9,6 @@ namespace TextAdventure {
         private string itemName;
 
         public string ItemName { get => itemName; set => itemName = value; }
+
     }
 }

@@ -28,6 +28,7 @@ namespace TextAdventure {
             }
             
             Console.WriteLine(result);
+            
         }
     }
 }

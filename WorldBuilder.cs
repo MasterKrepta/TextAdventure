@@ -14,6 +14,7 @@ namespace TextAdventure {
         
         public string[] worldData = File.ReadAllLines(@"..\data\worldmap.txt");
         public string[] roomDescriptions = File.ReadAllLines(@"..\data\descriptions.txt");
+        public string[] itemsInRoom = File.ReadAllLines(@"..\data\ItemsInRoom.txt");
         public List<Room> Level = new List<Room>();
 
 
@@ -23,7 +24,8 @@ namespace TextAdventure {
             for (int i = 0; i < worldData.Length; i++) {
                 string nextRoom = worldData[i];
                 string nextDesc = roomDescriptions[i];
-                Room newRoom = new Room(nextRoom, nextDesc);
+                string nextItem = itemsInRoom[i];
+                Room newRoom = new Room(nextRoom, nextDesc, nextItem);
                 Level.Add(newRoom);
 
             }

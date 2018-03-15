@@ -14,13 +14,14 @@ namespace TextAdventure {
         public int PosX { get => posX; set => posX = value; }
         public int PosY { get => posY; set => posY = value; }
 
-        private  List<Item> inventory;
+        private  List<string> inventory;
 
-        internal  List<Item> Inventory { get => inventory; set => inventory = value; }
+        internal  List<string> Inventory { get => inventory; set => inventory = value; }
 
         public Player() {
             posX = 1;
             posY = 1;
+            inventory = new List<string>();
         }
 
         public  void Move(string dir) {
